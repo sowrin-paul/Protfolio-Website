@@ -35,7 +35,7 @@
 
 .blue-gradient {
   background: #02a3eb;
-  background: linear-gradient(-90deg, #02a3eb 0%, rgba(60, 51, 80, 0) 100%);
+  background: linear-gradient(-90deg, #804dee 0%, rgba(60, 51, 80, 0) 100%);
   background: -webkit-linear-gradient(
     -90deg,
     #02a3eb 0%,
@@ -83,7 +83,7 @@
 
 .blue-text-gradient {
   /* background: -webkit-linear-gradient(#eee, #333); */
-  background: #56ccf2; /* fallback for old browsers */
+  background: #2f80ed; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to top,
     #2f80ed,

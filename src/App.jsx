@@ -3,11 +3,10 @@ import About from "./components/About";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Tech from "./components/Tech";
-import Feedback from "./components/Feedbacks";
-import Works from "./components/Works";
+// import Feedback from "./components/Feedbacks";
 import Experience from "./components/Experience";
 import Contact from "./components/Contact";
-// import { StarsCanvas } from './components';
+import StarCanvas from "./components/canvas/Stars";
 import './index.css';
 
 const App = () =>{
@@ -21,12 +20,11 @@ const App = () =>{
         <About />
         <Experience />
         <Tech />
-        <Works />
-        <Feedback />
+        {/* <Feedback /> */}
 
         <div className="relative z-0">
           <Contact />
-          {/* <StarCanvas /> */}
+          <StarCanvas />
         </div>
       </div>
     </BrowserRouter>
