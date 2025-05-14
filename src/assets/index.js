@@ -18,9 +18,11 @@ import python from "./tech/python.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
+import pytorch from "./tech/pytorch.png";
 
 import reacticon from "./company/reacticon.png";
 import codealpha from "./company/codealpha.png";
+import itransition from "./company/itransition.png";
 
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
@@ -51,4 +53,6 @@ export {
   carrent,
   jobit,
   tripguide,
+  pytorch,
+  itransition,
 };

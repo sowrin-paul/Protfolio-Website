@@ -9,11 +9,11 @@ const Earth = () => {
   const earth = useGLTF("./planet/scene.gltf");
 
   return (
-    <primitive 
+    <primitive
       object={earth.scene}
-      scale={2.5}
-      position-y={0}
-      rotation-y={0}
+      scale={[2.5, 2.5, 2.5]}
+      position={[0, 0, 0]}
+      rotation={[0, 0, 0]}
     />
   );
 }

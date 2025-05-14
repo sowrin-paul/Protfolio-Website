@@ -29,7 +29,7 @@ const Contact = () => {
         e.preventDefault();
         setLoading(true);
 
-        emailjs.send('service_fp4et2v', 'template_aqki1li', 
+        emailjs.send('service_fp4et2v', 'template_aqki1li',
             {
                 from_name: form.name,
                 to_name: 'Sowrin',
@@ -102,7 +102,7 @@ const Contact = () => {
                     </label>
                     <button
                         type="submit"
-                        className="bg-tertiary py-3 px-8 outline-none w-fit 
+                        className="bg-tertiary py-3 px-8 outline-none w-fit
                                     text-white font-bold shadow-md shadow-primary rounded-xl"
                     >
                         {loading ? 'Sending' : 'Send'}

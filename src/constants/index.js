@@ -19,6 +19,8 @@ import {
     jobit,
     tripguide,
     threejs,
+    pytorch,
+    itransition
   } from "../assets";
   
   export const navLinks = [
@@ -29,6 +31,10 @@ import {
     {
       id: "experience",
       title: "Experience",
+    },
+    {
+      id: "projects",
+      title: "Projects",
     },
     {
       id: "contact",
@@ -100,6 +106,10 @@ import {
       name: "figma",
       icon: figma,
     },
+    {
+      name: "PyTorch",
+      icon: pytorch,
+    },
   ];
   
   const experiences = [
@@ -123,7 +133,18 @@ import {
       date: "April 2024 - present",
       points: [
         "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with teams including designers, and other developers to create high-quality products.",
+        "Collaborating with teams including designers, and other team members to create high-quality products.",
+        "Implementing responsive design and ensuring cross-browser compatibility.",
+        "Participating in code reviews and providing constructive feedback to other developers.",
+      ],
+    },
+    {
+      title: "Frontend Developer",
+      icon: itransition,
+      iconBg: "#383E56",
+      date: "March 2025 - May 2025",
+      points: [
+        "Developing and maintaining a web applications using React.js, Node.Js, Express.",
         "Implementing responsive design and ensuring cross-browser compatibility.",
         "Participating in code reviews and providing constructive feedback to other developers.",
       ],
@@ -159,62 +180,62 @@ import {
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "CareSerenity",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "A web-based platform that allows users to search, adopt, and donate to Orphanages. Organizations that work for orphans can come under one roof and have enormous opportunities to share their work with normal people.",
       tags: [
         {
           name: "react",
           color: "blue-text-gradient",
         },
         {
-          name: "mongodb",
-          color: "green-text-gradient",
-        },
-        {
-          name: "tailwind",
-          color: "pink-text-gradient",
-        },
-      ],
-      image: carrent,
-      source_code_link: "https://github.com/",
-    },
-    {
-      name: "Job IT",
-      description:
-        "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
-      tags: [
-        {
-          name: "react",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "restapi",
-          color: "green-text-gradient",
-        },
-        {
-          name: "scss",
-          color: "pink-text-gradient",
-        },
-      ],
-      image: jobit,
-      source_code_link: "https://github.com/",
-    },
-    {
-      name: "Trip Guide",
-      description:
-        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
-      tags: [
-        {
-          name: "nextjs",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "supabase",
+          name: "djangorestapi",
           color: "green-text-gradient",
         },
         {
           name: "css",
+          color: "pink-text-gradient",
+        },
+      ],
+      image: carrent,
+      source_code_link: "https://github.com/sowrin-paul/CareSerenity",
+    },
+    // {
+    //   name: "PForm",
+    //   description:
+    //     "A web application where people can create their choice specific forms by choosing various templates, personalize the templates.",
+    //   tags: [
+    //     {
+    //       name: "react",
+    //       color: "blue-text-gradient",
+    //     },
+    //     {
+    //       name: "node",
+    //       color: "green-text-gradient",
+    //     },
+    //     {
+    //       name: "tailwindcss",
+    //       color: "pink-text-gradient",
+    //     },
+    //   ],
+    //   image: jobit,
+    //   source_code_link: "https://github.com/",
+    // },
+    {
+      name: "Scenerismo",
+      description:
+        "A comprehensive travel booking platform that allows users to book hotels, tickets for flights, and bus, and offers curated recommendations for popular destinations.",
+      tags: [
+        {
+          name: "html",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "css",
+          color: "green-text-gradient",
+        },
+        {
+          name: "php",
           color: "pink-text-gradient",
         },
       ],

@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 
 import { styles } from "../style";
-import { ComputersCanvas } from "./canvas";
+// import { ComputersCanvas } from "./canvas";
 import { style } from "framer-motion/client";
 
 const Hero = () => {
     return (
         <section className="relative w-full h-screen mx-auto">
-            <div className={`${styles.paddingX} absolute inset-0 top-[120px] 
-                                                max-w-7xl mx-auto 
-                                                flex flex-row 
+            <div className={`${styles.paddingX} absolute inset-0 top-[120px]
+                                                max-w-7xl mx-auto
+                                                flex flex-row
                                                 items-start gap-5`}
             >
                 <div className="flex flex-col items-center justify-center mt-5">
@@ -17,17 +17,17 @@ const Hero = () => {
                     <div className="w-1 sm:h-80 h-40 blue-gradient" />
                 </div>
                 <div>
-                    <h1 className={`${styles.heroHeadText} text-white`}>Hi, I'm <span 
+                    <h1 className={`${styles.heroHeadText} text-white`}>Hi, I'm <span
                         className="text-[#02a3eb]">Sowrin</span></h1>
                     <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-                        I develop web applications, user 
-                        <br className="sm:block hidden"/>inteface, and working on some machine learning applications
+                        I develop web applications, user
+                        <br className="sm:block hidden"/>interface, and tuning AI models for different types of tasks
                     </p>
                 </div>
             </div>
 
             {/* computer 3d model */}
-            <ComputersCanvas />
+            {/* <ComputersCanvas /> */}
 
             {/* Scroller */}
             <div

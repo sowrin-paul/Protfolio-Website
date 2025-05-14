@@ -3,7 +3,7 @@ import { progress } from "framer-motion";
 
 const CanvasLoader = () => {
     const { progress } = useProgress();
-    
+
     return (
         <Html>
             <span className="canvas-load"></span>
