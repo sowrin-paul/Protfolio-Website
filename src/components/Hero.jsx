@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-
+import { Physics } from "@react-three/rapier";
 import { styles } from "../style";
 import IDCard from "./IDCard";
 
@@ -35,7 +35,7 @@ const Hero = () => {
 
                 {/* Right Side - 3D ID Card */}
                 <div className="w-full md:w-1/2 h-full flex items-center justify-center mt-10 md:mt-0">
-                    <Canvas camera={{ position: [0, 0, 50], fov: 20 }}>
+                    <Canvas camera={{ position: [0, 0, 50], fov: 10 }}>
                         <hemisphereLight intensity={0.5} groundColor="grey" />
                         <pointLight intensity={50} position={[1, 1, 1]} />
                         <spotLight
@@ -47,7 +47,13 @@ const Hero = () => {
                         />
                         <ambientLight intensity={0.5} />
                         <directionalLight position={[2, 2, 5]} />
-                        <IDCard />
+                        <Physics>
+                            <IDCard student={{
+                                firstName: "Sowrin",
+                                lastName: "Paul",
+                                profilePicture: "/profile.jpg"
+                            }} />
+                        </Physics>
                         <OrbitControls
                             enableZoom={false}
                             minPolarAngle={Math.PI / 2}
