@@ -11,7 +11,7 @@ const Hero = () => {
     return (
         <section className="relative w-full h-screen mx-auto">
             <div
-                className={`${styles.paddingX} absolute inset-0 top-[120px]
+                className={`${styles.paddingX} absolute inset-0 top-[60px]
         max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10`}
             >
                 {/* Left Side - Text */}
@@ -36,10 +36,23 @@ const Hero = () => {
                 {/* Right Side - 3D ID Card */}
                 <div className="w-full md:w-1/2 h-full flex items-center justify-center mt-10 md:mt-0">
                     <Canvas camera={{ position: [0, 0, 50], fov: 20 }}>
+                        <hemisphereLight intensity={0.5} groundColor="grey" />
+                        <pointLight intensity={50} position={[1, 1, 1]} />
+                        <spotLight
+                            position={[1, 1, 1]}
+                            angle={0.3}
+                            penumbra={0.5}
+                            intensity={2}
+                            castShadow
+                        />
                         <ambientLight intensity={0.5} />
                         <directionalLight position={[2, 2, 5]} />
                         <IDCard />
-                        <OrbitControls enableZoom={false} />
+                        <OrbitControls
+                            enableZoom={false}
+                            minPolarAngle={Math.PI / 2}
+                            maxPolarAngle={Math.PI / 2}
+                        />
                     </Canvas>
                 </div>
             </div>

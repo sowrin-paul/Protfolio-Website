@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Text, Plane, useTexture } from "@react-three/drei";
+import { Text, Plane, useTexture, RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 
 function generateStripedCanvas() {
@@ -12,7 +12,7 @@ function generateStripedCanvas() {
 
   const strapWidth = 16;
   for (let i = 0; i < size / strapWidth; i++) {
-    ctx.fillStyle = i % 2 === 0 ? "#0000" : "#fff";
+    ctx.fillStyle = "#0000";
     ctx.fillRect(i * strapWidth, 0, strapWidth, size);
   }
 
@@ -24,39 +24,82 @@ function generateStripedCanvas() {
 
 const IDCard = () => {
   const logoTexture = useTexture("/logo.svg");
+  const qrTexture = useTexture("/qrcode.png");
   const cardRef = React.useRef();
 
-  useFrame(() => {
-    if (cardRef.current) {
-      cardRef.current.rotation.y += 0.002;
-    }
-  });
+  const materials = useMemo(() => [
+    new THREE.MeshStandardMaterial({ color: "black" }), // right
+    new THREE.MeshStandardMaterial({ color: "black" }), // left
+    new THREE.MeshStandardMaterial({ color: "black" }), // top
+    new THREE.MeshStandardMaterial({ color: "black" }), // bottom
+    new THREE.MeshStandardMaterial({ color: "black" }), // front
+    new THREE.MeshStandardMaterial({ color: "white" }), // back
+  ], []);
+
+  // useFrame(() => {
+  //   if (cardRef.current) {
+  //     cardRef.current.rotation.y += 0.002;
+  //   }
+  // });
 
   const stripeTexture = React.useMemo(() => {
     return generateStripedCanvas();
   }, []);
 
   return (
-    <group position={[0, 0, 0]}>
+    <group position={[0, -3.5, 0]}>
       {/* Strap with striped texture */}
-      <mesh position={[0, 7, 0]}>
-        <boxGeometry args={[0.2, 12, 0.05]} />
+      <mesh position={[0, 8.5, 0]}>
+        <boxGeometry args={[0.7, 7, 0.05]} />
         <meshStandardMaterial map={stripeTexture} />
       </mesh>
 
-      {/* Hook/Connector */}
-      <mesh position={[0, 0.5, 0]}>
-        <torusGeometry args={[0.35, 0.08, 16, 100]} />
-        <meshStandardMaterial color="#b0b0b0" metalness={0.7} roughness={0.3} />
+      <Text
+        fontSize={0.5}
+        color="#02a3eb"
+        position={[0, 9, 0.05]}
+        rotation={[0, 0, Math.PI / 2]}
+        anchorX="center"
+        anchorY="middle"
+      >
+        sowrin | portfolio
+      </Text>
+
+      {/* Metalic connector */}
+      <mesh position={[0, 6, 0]}>
+        <cylinderGeometry args={[0.6, 0.6, 0.9, 20]} />
+        <meshStandardMaterial color="#d1d5db" metalness={1} roughness={0.2} />
+      </mesh>
+
+      {/* Strap below the slot (inside the card) */}
+      <mesh position={[0, 4.6, 0.13]}>
+        <boxGeometry args={[0.5, 0.5, 0.05]} />
+        <meshStandardMaterial map={stripeTexture} />
       </mesh>
 
       {/* ID Card */}
-      <mesh ref={cardRef} position={[0, -2, 0]} renderOrder={1}>
-        <boxGeometry args={[6, 12, 0.2]} />
+      <RoundedBox
+        ref={cardRef}
+        args={[6, 10, 0.2]}
+        radius={0.3}
+        smoothness={8}
+        position={[0, 0, 0]}
+        renderOrder={1}
+        material={materials}
+      >
         <meshStandardMaterial color="black" />
 
+        {/* rectangular hole with rounded corners */}
+        <RoundedBox
+          args={[1.6, 0.25, 0.25]}
+          radius={0.1}
+          smoothness={4}
+          position={[0, 4.6, 0.13]}
+        >
+          <meshStandardMaterial color="#222" />
+        </RoundedBox>
         {/* Top-left logo */}
-        <Plane args={[1.5, 1.5]} position={[-1.5, 4.2, 0.11]}>
+        <Plane args={[2, 2.3]} position={[-1.8, 3.7, 0.11]}>
           <meshBasicMaterial map={logoTexture} transparent />
         </Plane>
 
@@ -64,20 +107,20 @@ const IDCard = () => {
         <Text
           fontSize={0.5}
           color="white"
-          position={[-2, -4.5, 0.11]}
+          position={[-2.1, -4, 0.11]}
           anchorX="left"
           anchorY="bottom"
         >
           Sowrin Paul
         </Text>
 
-        {/* Vertical S O P letters */}
+        {/* Vertical W E B D E V letters */}
         {["W", "E", "B", "D", "E", "V"].map((char, i) => (
           <Text
             key={char}
             fontSize={0.7}
             color="white"
-            position={[2, 5 - i * 2, 0.11]}
+            position={[2, 4.3 - i * 1.7, 0.11]}
             rotation={[0, 0, Math.PI / 2]}
             anchorX="center"
             anchorY="middle"
@@ -85,7 +128,23 @@ const IDCard = () => {
             {char}
           </Text>
         ))}
-      </mesh>
+        {/* Subtle border */}
+        {/* <RoundedBox
+          args={[6.1, 10.1, 0.22]}
+          radius={0.32}
+          smoothness={8}
+          position={[0, 0, 0.12]}
+        >
+          
+        </RoundedBox> */}
+        <Plane
+          args={[5, 5.7]}
+          position={[0, 0, -0.11]}
+          rotation={[0, Math.PI, 0]}
+        >
+          <meshBasicMaterial map={qrTexture} transparent />
+        </Plane>
+      </RoundedBox>
     </group>
   );
 };
