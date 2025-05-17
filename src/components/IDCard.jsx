@@ -4,7 +4,6 @@ import { extend, useFrame, useThree } from "@react-three/fiber";
 import { BallCollider, CuboidCollider, RigidBody, useRopeJoint, useSphericalJoint } from "@react-three/rapier";
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import { useRef, useMemo } from "react";
-import CardTexture from "./CardTexture";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 useGLTF.preload("/card.glb");
@@ -12,7 +11,7 @@ useTexture.preload("/band.png");
 
 const segmentProps = { type: "dynamic", canSleep: true, colliders: false, angularDamping: 2, linearDamping: 2 };
 
-const IDCard = ({ student: user, animationDuration = 4 }) => {
+const IDCard = ({ animationDuration = 4 }) => {
   const cardRef = useRef(null);
   const animationProgress = useRef(0);
   const startRotation = useRef(0);
@@ -49,10 +48,11 @@ const IDCard = ({ student: user, animationDuration = 4 }) => {
   const strapTextPos = useRef([0, 0, 0]);
   const clampPos = nodes.clamp.geometry.boundingSphere?.center || new THREE.Vector3(0, 0, 0);
   if (ropeBottom.current) {
-    const ropePos = ropeBottom.current.translation();
-    ropePos.lerp(clampPos, 0.1);  // smooting factor
-    curve.points[0].copy(ropePos);
-  }
+  const ropeTrans = ropeBottom.current.translation();
+  const ropePos = new THREE.Vector3(ropeTrans.x, ropeTrans.y, ropeTrans.z);
+  ropePos.lerp(clampPos, 0.1);  // smoothing factor
+  curve.points[0].copy(ropePos);
+}
 
   useRopeJoint(fixedPoint, ropeTop, [[0, -0.5, 0], [0, 0, 0], 1]);
   useRopeJoint(ropeTop, ropeMiddle, [[0, 0, 0], [0, 0, 0], 1]);
@@ -148,19 +148,51 @@ const IDCard = ({ student: user, animationDuration = 4 }) => {
         {/* Card with clamp and texture */}
         <RigidBody ref={card} {...segmentProps} position={[0, -3.5, 0]} rotation={[0, Math.PI / 2, 0]}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
-          <group scale={3} position={[0, -2.125, -0.05]}>
+          <group scale={4} position={[0, -3.30, -0.05]}>
             <group onClick={triggerRotation} ref={cardRef}>
               {/* Card mesh with RenderTexture */}
               <mesh geometry={nodes.card.geometry}>
-                <meshPhysicalMaterial roughness={1} clearcoat={.5} clearcoatRoughness={1} metalness={.3}>
-                  <RenderTexture colorSpace={THREE.SRGBColorSpace} attach="map" width={1024} height={1024}>
-                    {/* <CardTexture
-                      firstName={user?.firstName || ""}
-                      lastName={user?.lastName || ""}
-                      profilePicture={user?.profilePicture || ""}
-                    /> */}
-                  </RenderTexture>
-                </meshPhysicalMaterial>
+                <meshPhysicalMaterial
+                  roughness={1}
+                  clearcoat={0.5}
+                  clearcoatRoughness={1}
+                  metalness={0.3}
+                  color="black"
+                />
+              </mesh>
+              {/* Logo at top-left */}
+              <mesh position={[-0.2, 0.85, 0.01]}>
+                <planeGeometry args={[0.25, 0.3]} />
+                <meshBasicMaterial map={useTexture("/logo.svg")} transparent />
+              </mesh>
+
+              {/* Name at bottom-left */}
+              <Text
+                fontSize={0.07}
+                color="white"
+                position={[-0.3, 0.2, 0.01]}
+                anchorX="left"
+                anchorY="bottom"
+              >
+                Sowrin Paul
+              </Text>
+
+              {/* Vertical text on right side */}
+              <Text
+                fontSize={0.1}
+                color="#02a3eb"
+                position={[0.26, 0.5, 0.01]}
+                rotation={[0, 0, Math.PI / 2]}
+                anchorX="center"
+                anchorY="middle"
+                letterSpacing={0.8}
+              >
+                WEBDEV
+              </Text>
+              {/* QR code on the back side */}
+              <mesh position={[0, 0.5, -0.011]} rotation={[0, Math.PI, 0]}>
+                <planeGeometry args={[0.5, 0.5]} />
+                <meshBasicMaterial map={useTexture("/qrcode.png")} transparent />
               </mesh>
               {/* Clamp model at slot */}
               <mesh geometry={nodes.clamp.geometry} material={materials.metal} />

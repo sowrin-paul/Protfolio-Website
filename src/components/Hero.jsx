@@ -45,20 +45,12 @@ const Hero = () => {
                             intensity={2}
                             castShadow
                         />
-                        <ambientLight intensity={0.5} />
-                        <directionalLight position={[2, 2, 5]} />
+                        <ambientLight intensity={0.6} />
+                        <directionalLight position={[2, 2, 5]} intensity={1} />
+                        <directionalLight position={[-2, -2, -5]} intensity={0.7} />
                         <Physics>
-                            <IDCard student={{
-                                firstName: "Sowrin",
-                                lastName: "Paul",
-                                profilePicture: "/profile.jpg"
-                            }} />
+                            <IDCard />
                         </Physics>
-                        <OrbitControls
-                            enableZoom={false}
-                            minPolarAngle={Math.PI / 2}
-                            maxPolarAngle={Math.PI / 2}
-                        />
                     </Canvas>
                 </div>
             </div>
