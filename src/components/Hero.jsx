@@ -6,7 +6,6 @@ import { styles } from "../style";
 import IDCard from "./IDCard";
 
 
-
 const Hero = () => {
     return (
         <section className="relative w-full h-screen mx-auto">
